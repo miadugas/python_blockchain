@@ -2,4 +2,6 @@
 
 Built on Python highlighting the BlockChain
 
-What‘s a Blockchain? A distributed data storage consisting of containers (blocks)which are connected. For a deeper dive: 
+What‘s a Blockchain? A distributed data storage consisting of containers (blocks)which are connected. 
+
+For a deeper dive: https://github.com/miadugas/python_blockchain/blob/master/blockchain-basics%20(1).pdf
