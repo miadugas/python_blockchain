@@ -1,4 +1,4 @@
-# Initializing blockchain list
+# Initializing our (empty) blockchain list
 genesis_block = {
         'previous_hash':'', 
         'index': 0, 
@@ -7,6 +7,10 @@ genesis_block = {
 blockchain = [genesis_block]
 open_transactions = []
 owner = 'Mia'
+
+
+def hash_block(block):
+    return '-'.join([str(block[key]) for key in block])
 
 
 def get_last_blockchain_value():
@@ -38,10 +42,9 @@ def add_transaction(recipient, sender=owner, amount=1.0):
 
 def mine_block():
     last_block = blockchain[-1]
-    hashed_block = '-'.join([str(last_block[key]) for key in last_block])
-    print(hashed_block)
+    hashed_block = hash_block(last_block)
     block = {
-        'previous_hash':'XYZ', 
+        'previous_hash':hashed_block, 
         'index': len(blockchain), 
         'transactions': open_transactions
     }
@@ -74,15 +77,22 @@ def print_blockchain_elements():
 
 # Loop logic to verify the chain
 def verify_chain():
-    #block_index = 0
-    is_valid = True
-    for block_index in range(len(blockchain)):
-        if block_index == 0:
+# Verify the current blockchain and return True if its valid and False otherwise
+    for (index, block) in enumerate(blockchain):
+        if index == 0:
             continue
-        elif blockchain[block_index][0] == blockchain[block_index -1]:
-            is_valid = True
-        else:
-            is_valid = False
+        if block['previous_hash'] != hash_block(blockchain[index - 1]):
+            return False
+    return True
+    #block_index = 0
+    # is_valid = True
+    # for block_index in range(len(blockchain)):
+    #     if block_index == 0:
+    #         continue
+    #     elif blockchain[block_index][0] == blockchain[block_index -1]:
+    #         is_valid = True
+    #     else:
+    #         is_valid = False
 
     # another way to write the above
     # for block in blockchain:
@@ -95,8 +105,7 @@ def verify_chain():
     #         is_valid = False
     #         break
     #     block_index += 1
-    return is_valid
-
+    #return is_valid
 waiting_for_input = True
 
 # Get the second & third transaction input and add the value to the blockchain
@@ -122,16 +131,21 @@ while waiting_for_input:
     elif user_choice == 'h':
         # Make sure that no one tries to "hack" the blockchain if its empty
         if len(blockchain) >=1:
-            blockchain[0] = [2]
+            blockchain[0] = {
+                'previous_hash': '',
+                'index': 0,
+                'transactions': [{'sender': 'Chris', 'recipient': 'Mia', 'amount': 100.0}]
+            }
     elif user_choice == 'q':
         # This will lead to the loop to exisit because its running condition
         waiting_for_input = False
     else:
         print('Input was invalid, please pick a value from the list!')
-    # if not verify_chain():
-    #     print_blockchain_elements()
-    #     print('Invalid blockchain')
-    #     break
+    if not verify_chain():
+        print_blockchain_elements()
+        print('Invalid blockchain!')
+        # Break out of the loop
+        break
 else:
     print('User has left!')
 
