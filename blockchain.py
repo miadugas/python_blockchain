@@ -160,6 +160,7 @@ def verify_transactions():
 waiting_for_input = True
 
 # Get the second & third transaction input and add the value to the blockchain
+#
 while waiting_for_input:
     print('Please choose an option...')
     print('1: Add a new transaction value')
