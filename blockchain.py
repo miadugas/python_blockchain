@@ -44,12 +44,12 @@ def get_last_blockchain_value():
 
 
 # verify if sender has the blance to send a tx
-def get_transaction(transaction):
+def verify_transaction(transaction):
     sender_balance = get_balance(transaction['sender'])
     return sender_balance >= transaction['amount']
         
 
-# This function accepts the arguments
+# This function accepts 2 arguments
 # One required one (transaction_amount) and one optional one (last_transaction)
 # The optional one is optional becasue the default value => [1]
 
@@ -83,12 +83,12 @@ def mine_block():
         'recipient': owner,
         'amount': MINING_REWARD
     }
-    copied_transactions = open_transactions
-    open_transactions.append(reward_transaction)
+    copied_transactions = open_transactions[:]
+    copied_transactions.append(reward_transaction)
     block = {
         'previous_hash':hashed_block, 
         'index': len(blockchain), 
-        'transactions': open_transactions
+        'transactions': copied_transactions
     }
     blockchain.append(block)
     #reset open transactions
