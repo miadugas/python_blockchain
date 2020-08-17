@@ -154,13 +154,7 @@ def verify_chain():
 
 # Helper function to Check transaction validity
 def verify_transactions():
-    is_valid = True
-    for tx in open_transactions:
-        if verify_transaction(tx):
-            is_valid = True
-        else:
-            is_valid = False
-        return is_valid
+    return all([verify_transaction(tx) for tx in open_transactions])
 
 
 waiting_for_input = True
@@ -198,7 +192,6 @@ while waiting_for_input:
             print('All transactions are valid')
         else:
             print('There are invalid transactions')
-
     elif user_choice == 'h':
         # Make sure that no one tries to "hack" the blockchain if its empty
         if len(blockchain) >=1:
