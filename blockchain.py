@@ -150,6 +150,19 @@ def verify_chain():
     #         break
     #     block_index += 1
     #return is_valid
+
+
+# Helper function to Check transaction validity
+def verify_transactions():
+    is_valid = True
+    for tx in open_transactions:
+        if verify_transaction(tx):
+            is_valid = True
+        else:
+            is_valid = False
+        return is_valid
+
+
 waiting_for_input = True
 
 # Get the second & third transaction input and add the value to the blockchain
@@ -159,6 +172,7 @@ while waiting_for_input:
     print('2: Mine a new block')
     print('3: Output the blockchain blocks')
     print('4: Output participents')
+    print('5: Check transaction validity')
     print('h: Manipulate the chain')
     print('q: Quit')
     user_choice = get_user_choice()
@@ -179,6 +193,12 @@ while waiting_for_input:
         print_blockchain_elements()
     elif user_choice == '4':
         print(participants)
+    elif user_choice == '5':
+        if verify_transactions():
+            print('All transactions are valid')
+        else:
+            print('There are invalid transactions')
+
     elif user_choice == 'h':
         # Make sure that no one tries to "hack" the blockchain if its empty
         if len(blockchain) >=1:
