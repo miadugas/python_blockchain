@@ -2,7 +2,7 @@ from functools import reduce
 import hashlib as hl
 from collections import OrderedDict
 
-# Importing two functions from my hash_util.py file. 
+# Importing two functions from my hash_util.py file.
 from hash_util import hash_string_256, hash_block
 
 # The reward given to miners (for creating a new block)
@@ -10,10 +10,10 @@ MINING_REWARD = 10
 
 # The starting block for the blockchain
 genesis_block = {
-        'previous_hash':'', 
-        'index': 0, 
-        'transactions': [],
-        'proof': 100
+    'previous_hash': '',
+    'index': 0,
+    'transactions': [],
+    'proof': 100
 }
 # Initializing the (empty) blockchain list
 blockchain = [genesis_block]
@@ -52,21 +52,22 @@ def get_balance(participant):
     """
     # Fetch a list of all sent coin amounts for the given person (empty lists are returned if the person was NOT the sender)
     # dont allow overdraft for chained transactions & calculate balance better
-    tx_sender = [[tx['amount'] for tx in block['transactions'] 
-                    if tx['sender'] == participant] for block in blockchain]
+    tx_sender = [[tx['amount'] for tx in block['transactions']
+                if tx['sender'] == participant] for block in blockchain]
     # Fetch a list of all sent coin amounts for the given person (empty lists are returned if the person was NOT the sender)
     # This fetches sent amounts of open transactions (to avoid double spending)
-    open_tx_sender = [tx['amount'] 
-                        for tx in open_transactions if tx['sender'] == participant]
+    open_tx_sender = [tx['amount']
+                    for tx in open_transactions if tx['sender'] == participant]
     tx_sender.append(open_tx_sender)
     print(tx_sender)
-    amount_sent = reduce(lambda tx_sum, tx_amt: tx_sum + sum(tx_amt) 
-                            if len(tx_amt) > 0 else tx_sum + 0, tx_sender, 0)
+    amount_sent = reduce(lambda tx_sum, tx_amt: tx_sum + sum(tx_amt)
+                        if len(tx_amt) > 0 else tx_sum + 0, tx_sender, 0)
     # This fetches received coin amounts of transactions that were already included in blocks of the blockchain
     # We ignore open transactions here because you shouldn't be able to spend coins before the transaction was confirmed + included in a block
-    tx_recipient = [[tx['amount'] for tx in block['transactions'] 
-                        if tx['recipient'] == participant] for block in blockchain]
-    amount_received = reduce(lambda tx_sum, tx_amt: tx_sum + sum(tx_amt) if len(tx_amt) > 0 else tx_sum + 0, tx_recipient, 0)
+    tx_recipient = [[tx['amount'] for tx in block['transactions']
+                    if tx['recipient'] == participant] for block in blockchain]
+    amount_received = reduce(lambda tx_sum, tx_amt: tx_sum + sum(tx_amt)
+                            if len(tx_amt) > 0 else tx_sum + 0, tx_recipient, 0)
     # Return the total balance
     return amount_received - amount_sent
 
@@ -82,7 +83,7 @@ def get_last_blockchain_value():
 def verify_transaction(transaction):
     sender_balance = get_balance(transaction['sender'])
     return sender_balance >= transaction['amount']
-        
+
 
 # This function accepts 2 arguments
 # One required one (transaction_amount) and one optional one (last_transaction)
@@ -98,8 +99,8 @@ def add_transaction(recipient, sender=owner, amount=1.0):
         :amount: The amount of the coins sent with the transaction (default 1.0)
     """
     # transaction = {
-    #     'sender': sender, 
-    #     'recipient': recipient, 
+    #     'sender': sender,
+    #     'recipient': recipient,
     #     'amount': amount
     # }
     transaction = OrderedDict(
@@ -110,6 +111,7 @@ def add_transaction(recipient, sender=owner, amount=1.0):
         participants.add(recipient)
         return True
     return False
+
 
 def mine_block():
     """Create a new block and add open transactions to it."""
@@ -131,13 +133,13 @@ def mine_block():
     copied_transactions = open_transactions[:]
     copied_transactions.append(reward_transaction)
     block = {
-        'previous_hash':hashed_block, 
-        'index': len(blockchain), 
+        'previous_hash': hashed_block,
+        'index': len(blockchain),
         'transactions': copied_transactions,
         'proof': proof
     }
     blockchain.append(block)
-    #reset open transactions
+    # reset open transactions
     return True
 
 
@@ -167,8 +169,10 @@ def print_blockchain_elements():
 # add_transaction(tx_amount)
 
 # Loop logic to verify the chain
+
+
 def verify_chain():
-# Verify the current blockchain and return True if its valid and False otherwise
+    # Verify the current blockchain and return True if its valid and False otherwise
     for (index, block) in enumerate(blockchain):
         if index == 0:
             continue
@@ -199,7 +203,7 @@ def verify_chain():
     #         is_valid = False
     #         break
     #     block_index += 1
-    #return is_valid
+    # return is_valid
 
 
 # Helper function to Check transaction validity
@@ -245,7 +249,7 @@ while waiting_for_input:
             print('There are invalid transactions')
     elif user_choice == 'h':
         # Make sure that no one tries to "hack" the blockchain if its empty
-        if len(blockchain) >=1:
+        if len(blockchain) >= 1:
             blockchain[1] = {
                 'previous_hash': '',
                 'index': 0,

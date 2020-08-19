@@ -1,13 +1,14 @@
 import hashlib as hl
 import json
 
+
 def hash_string_256(string):
     """Create a SHA256 hash for a given input string.
 
     Arguments:
         :string: The string which should be hashed.
     """
-    return h1.sha256(string).hexdigest()
+    return hl.sha256(string).hexdigest()
 
 
 def hash_block(block):
