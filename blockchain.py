@@ -7,7 +7,7 @@ import pickle
 # Importing two functions from my hash_util.py file.
 from hash_util import hash_string_256, hash_block
 
-# The reward given to miners (for creating a new block)
+# The reward given to miners (for creating new blocks)
 MINING_REWARD = 10
 
 
