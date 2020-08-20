@@ -1,2 +1,2 @@
-[{'previous_hash': '', 'index': 0, 'transactions': [], 'proof': 100}, {'previous_hash': '68da5267793e1fc7bd98d9cc01cf91e38daa67cbbd7b646bcd99b4dc3df93eb1', 'index': 1, 'transactions': [OrderedDict([('sender', 'MINING'), ('recipient', 'Mia'), ('amount', 10)])], 'proof': 119}]
-[]
+[{"previous_hash": "8264da957ae4ec4adc958f450561d779d6c03e025528422c0cb2283345bf9ed9", "index": 10, "proof": 394, "transactions": [{"sender": "Mia", "recipient": "w", "amount": 10.0}, {"sender": "Mia", "recipient": "1", "amount": 3.0}, {"sender": "MINING", "recipient": "Mia", "amount": 10}]}, {"previous_hash": "1fc45bfed2dc6bbb3927ea36c99e7159282da47d2bdb5b4ed6708bcec7ceacde", "index": 1, "transactions": [{"sender": "MINING", "recipient": "Mia", "amount": 10}], "proof": 617}]
+[{"sender": "Mia", "recipient": "w", "amount": 3.0}]
