@@ -85,16 +85,16 @@ def save_data():
         print('Saving failed!')
 
 
-# Proof of work validation. Validates a proof of work number and see if it solves the puzzle algorithm (two leading 0s)
+# Proof of work validation. Validates a proof of work number and see if it solves the puzzle algorithm (two leading 0s for now)
 def valid_proof(transactions, last_hash, proof):
     """ Arguments:
         :transactions: The transactions of the block for which the proof is created.
         :last_hash: The previous block's hash which will be stored in the current block.
         :proof: The proof number we're testing.
     """
-    # Create a string with all the hash inputs
+    # Creating a string with all the hash inputs
     guess = (str(transactions) + str(last_hash) + str(proof)).encode()
-    # Hash the string
+    # Hashing the string
     # IMPORTANT: This is NOT the same hash as will be stored in the previous_hash. It's a not a block's hash. It's only used for the proof-of-work algorithm.
     guess_hash = hash_string_256(guess)
     # Only a hash (which is based on the above inputs) which starts with two 0s is treated as valid
