@@ -1,5 +1,6 @@
 from time import time
 
+# adding a block class to make code more readable 
 class Block:
     def __init__(self, index, previous_hash, transactions, proof, time=time()):
         self.index = index
