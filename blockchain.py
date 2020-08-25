@@ -21,7 +21,7 @@ class Blockchain:
         self.open_transactions = []
 
 #Initialize blockchain + open transactions data from a file.
-    def load_data():
+    def load_data(self):
     #Initialize blockchain + open transactions data from a file.
         global blockchain
         global open_transactions
