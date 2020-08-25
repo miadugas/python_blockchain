@@ -20,4 +20,5 @@ def hash_block(block):
     """Modify the hash for security with hashlib & json """
     #Fixing a json error, so im creating a new dictionary everytime i hash a block
     hashable_block = block.__dict__.copy()
+    hashable_block['transactions'] = [tx.to_ordered_dict() for tx in hashable_block['transactions']]
     return hash_string_256(json.dumps(hashable_block, sort_keys=True).encode())
